@@ -53,7 +53,7 @@ export default function Hero({ onEnterRoom, onOpenResume }) {
               transition={{ delay: 1.4, duration: 0.7 }}
               className="space-y-5 sm:space-y-6"
             >
-              <div className="flex items-center gap-3">
+              <div className="hidden sm:flex items-center gap-3">
                 <span className="h-8 w-8 rounded-full bg-ink-900 text-cream-50 inline-flex items-center justify-center font-display text-sm">
                   R
                 </span>
@@ -88,13 +88,13 @@ export default function Hero({ onEnterRoom, onOpenResume }) {
               </div>
 
               <div className="flex items-center gap-3 pt-1">
-                <span className="h-px w-10 bg-ink-300" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-ink-500">
+                <span className="h-px w-8 sm:w-10 bg-ink-300" />
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.22em] text-ink-500 truncate">
                   React · Redux · Tailwind · Vite
                 </span>
               </div>
 
-              <p className="text-ink-700 text-[15px] leading-relaxed max-w-lg">
+              <p className="text-ink-700 text-[14px] sm:text-[15px] leading-relaxed max-w-lg">
                 I shape <em className="text-ink-900 font-medium">modern, responsive</em>{" "}
                 web apps with clean code, considered type, and warm colour
                 palettes — turning ideas into interfaces people enjoy.
@@ -146,9 +146,9 @@ export default function Hero({ onEnterRoom, onOpenResume }) {
               className="relative"
             >
               {/* Frame label */}
-              <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.28em] text-ink-500 mb-2">
-                <span>— The Studio · interactive 3D scene</span>
-                <span className="hidden sm:inline">Fig. 01</span>
+              <div className="flex items-center justify-between gap-2 text-[10px] font-mono uppercase tracking-[0.24em] sm:tracking-[0.28em] text-ink-500 mb-2">
+                <span className="truncate">— The Studio · 3D scene</span>
+                <span className="hidden sm:inline shrink-0">Fig. 01</span>
               </div>
 
               <div className="relative aspect-[4/3] sm:aspect-[6/5] w-full">
@@ -282,7 +282,7 @@ function ScrollDownIndicator() {
     <motion.div
       animate={{ opacity: show ? 1 : 0 }}
       transition={{ duration: 0.4 }}
-      className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-ink-500 text-[10px] font-mono tracking-[0.3em] uppercase"
+      className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 text-ink-500 text-[10px] font-mono tracking-[0.3em] uppercase"
     >
       <span>Scroll</span>
       <motion.span

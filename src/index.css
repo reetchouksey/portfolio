@@ -301,6 +301,18 @@ body {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
+.mt-safe { margin-top: env(safe-area-inset-top); }
+
+/* A consistent layout container used by every section so spacing reads
+   the same on phones, tablets, laptops, and ultra-wide displays. */
+.layout-container {
+  width: 100%;
+  max-width: 80rem; /* 1280px — same as max-w-7xl */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 2.5rem);
+  padding-right: clamp(1rem, 4vw, 2.5rem);
+}
 
 /* On touch / small devices, neuter the most expensive paints
    (heavy backdrop-filter blurs and large radial gradients) so the

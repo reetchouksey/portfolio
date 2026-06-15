@@ -83,134 +83,122 @@ function ProjectCard({ project, index, onOpen }) {
   };
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5, delay: index * 0.07 }}
-    >
-    <button
-      type="button"
-      onClick={onOpen}
-      data-cursor="hover"
       ref={tiltRef}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
-      className="text-left w-full glass rounded-2xl sm:rounded-3xl p-4 sm:p-6 hover:shadow-soft transition-all tilt-card relative overflow-hidden"
+      className="group glass rounded-2xl sm:rounded-3xl overflow-hidden tilt-card relative flex flex-col"
       style={{ transition: "transform 0.25s ease, box-shadow 0.25s ease" }}
     >
       <div
-        className={`absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br ${project.color} opacity-20 blur-3xl`}
+        className={`pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br ${project.color} opacity-20 blur-3xl`}
+        aria-hidden="true"
       />
 
-      <div className="relative space-y-4">
-        {/* Mock browser window */}
-        <div className="rounded-2xl border border-ink-200/60 bg-white/70 overflow-hidden">
-          <div className="flex items-center gap-1.5 px-3 py-2 border-b border-ink-100">
-            <span className="h-2.5 w-2.5 rounded-full bg-rose-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-300" />
-            <div className="ml-2 flex-1 h-5 rounded-md bg-ink-100/60" />
-          </div>
-          <div
-            className={`relative h-32 sm:h-40 bg-gradient-to-br ${project.color} flex items-center justify-center text-white`}
-          >
-            <div className="absolute inset-0 bg-noise opacity-10" />
-            <div className="relative text-center">
-              <div className="text-[10px] uppercase tracking-widest opacity-80">
-                Preview
-              </div>
-              <div className="text-xl font-bold mt-1">{project.title}</div>
+      {/* Preview header — full-bleed inside the card */}
+      <button
+        type="button"
+        onClick={onOpen}
+        data-cursor="hover"
+        aria-label={`Open ${project.title} case study`}
+        className={`relative w-full h-28 sm:h-36 bg-gradient-to-br ${project.color} text-white text-left overflow-hidden`}
+      >
+        <div className="absolute inset-0 bg-noise opacity-10" aria-hidden="true" />
+        <div className="absolute top-2.5 left-3 flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded-full bg-white/70" />
+          <span className="h-2 w-2 rounded-full bg-white/50" />
+          <span className="h-2 w-2 rounded-full bg-white/30" />
+        </div>
+        <div className="absolute inset-x-4 bottom-3.5 sm:bottom-4 flex items-end justify-between gap-2">
+          <div className="min-w-0">
+            <div className="text-[10px] uppercase tracking-[0.22em] opacity-80">
+              Project {String(index + 1).padStart(2, "0")}
+            </div>
+            <div className="font-display text-lg sm:text-xl font-bold leading-tight truncate">
+              {project.title}
             </div>
           </div>
+          <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-medium px-2 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 shrink-0">
+            Preview
+          </span>
         </div>
+      </button>
 
-        <div className="space-y-2">
-          <div className="text-xs uppercase tracking-widest text-ink-400">
-            Project {String(index + 1).padStart(2, "0")}
-          </div>
-          <h3 className="text-lg font-semibold text-ink-900">{project.title}</h3>
-          <p className="text-sm text-ink-600 leading-relaxed">{project.short}</p>
-        </div>
+      {/* Body */}
+      <div className="relative flex-1 flex flex-col gap-3 sm:gap-4 p-4 sm:p-5">
+        <p className="text-[13.5px] sm:text-sm text-ink-600 leading-relaxed">
+          {project.short}
+        </p>
 
-        <div className="flex flex-wrap gap-1.5">
+        <ul className="flex flex-wrap gap-1.5">
           {project.tech.map((t) => (
-            <span
+            <li
               key={t}
               className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-ink-900/5 text-ink-700"
             >
               {t}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="flex items-center justify-between pt-1">
-          <span className="text-sm font-medium text-ink-900 inline-flex items-center gap-1">
+        {/* Live demo row — sits inside the card so the block stays cohesive */}
+        {project.demo && project.demo !== "#" && (
+          <a
+            href={project.demo}
+            target="_blank"
+            rel="noreferrer"
+            data-cursor="hover"
+            className="mt-auto group/url flex items-center gap-1.5 min-w-0 px-3 py-2 rounded-xl bg-cream-50/80 border border-ink-200/60 text-[11px] font-mono text-ink-700 hover:text-ink-900 hover:bg-cream-50 transition"
+          >
+            <ExternalLink className="h-3 w-3 shrink-0 text-ink-500 group-hover/url:text-ink-900" />
+            <span className="truncate min-w-0 flex-1">
+              {project.demo.replace(/^https?:\/\//, "")}
+            </span>
+            <span className="text-ink-400 group-hover/url:text-ink-900 shrink-0">↗</span>
+          </a>
+        )}
+
+        <div className="flex items-center justify-between gap-3 pt-1 border-t border-ink-100/70">
+          <button
+            type="button"
+            onClick={onOpen}
+            data-cursor="hover"
+            className="text-[13px] sm:text-sm font-semibold text-ink-900 inline-flex items-center gap-1 hover:gap-1.5 transition-all pt-3"
+          >
             View case study
             <span aria-hidden>→</span>
-          </span>
-          <div className="flex items-center gap-2 text-ink-500">
-            <span
-              role="link"
-              tabIndex={0}
+          </button>
+          <div className="flex items-center gap-1 pt-3">
+            <a
+              href={demoHref(project)}
+              target="_blank"
+              rel="noreferrer"
               aria-label={`Open ${project.title} live demo`}
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(demoHref(project), "_blank", "noopener,noreferrer");
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  window.open(demoHref(project), "_blank", "noopener,noreferrer");
-                }
-              }}
               data-cursor="hover"
-              className="p-1.5 rounded-md hover:bg-ink-900/10 hover:text-ink-900 transition cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
+              className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-ink-500 hover:bg-ink-900/10 hover:text-ink-900 transition"
             >
               <ExternalLink className="h-4 w-4" />
-            </span>
-            <span
-              role="link"
-              tabIndex={0}
+            </a>
+            <a
+              href={githubHref(project)}
+              target="_blank"
+              rel="noreferrer"
               aria-label={`Open ${project.title} on GitHub`}
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(githubHref(project), "_blank", "noopener,noreferrer");
-              }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  window.open(githubHref(project), "_blank", "noopener,noreferrer");
-                }
-              }}
               data-cursor="hover"
-              className="p-1.5 rounded-md hover:bg-ink-900/10 hover:text-ink-900 transition cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
+              className="h-8 w-8 inline-flex items-center justify-center rounded-lg text-ink-500 hover:bg-ink-900/10 hover:text-ink-900 transition"
             >
               <Github className="h-4 w-4" />
-            </span>
+            </a>
           </div>
         </div>
       </div>
-    </button>
-
-    {/* Live demo URL — visible directly under each card */}
-    {project.demo && project.demo !== "#" && (
-      <a
-        href={project.demo}
-        target="_blank"
-        rel="noreferrer"
-        onClick={(e) => e.stopPropagation()}
-        data-cursor="hover"
-        className="mt-2 group flex items-center gap-1.5 w-full max-w-full px-3 py-1.5 rounded-full bg-cream-50/80 border border-ink-200/60 text-[11px] font-mono text-ink-700 hover:text-ink-900 hover:bg-cream-50 transition"
-      >
-        <ExternalLink className="h-3 w-3 shrink-0 text-ink-500 group-hover:text-ink-900" />
-        <span className="truncate min-w-0 flex-1">{project.demo.replace(/^https?:\/\//, "")}</span>
-        <span className="text-ink-400 group-hover:text-ink-900 shrink-0">↗</span>
-      </a>
-    )}
-    </motion.div>
+    </motion.article>
   );
 }
 

@@ -72,25 +72,25 @@ export default function MoodBoard() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: i * 0.07 }}
             whileHover={{ y: -4, rotate: i % 2 === 0 ? -1 : 1 }}
-            className="swatch aspect-[3/4] flex flex-col justify-between p-4 cursor-default"
+            className="swatch aspect-[4/5] sm:aspect-[3/4] flex flex-col justify-between p-3 sm:p-4 cursor-default"
             style={{ background: s.bg, color: s.fg }}
             data-cursor="hover"
           >
             <div className="flex items-start justify-between">
               <span
-                className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-70"
+                className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] opacity-70"
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em] opacity-60">
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] opacity-60 truncate ml-2">
                 {s.type}
               </span>
             </div>
             <div className="space-y-1">
-              <div className="font-display text-xl sm:text-2xl font-semibold leading-tight">
+              <div className="font-display text-base sm:text-2xl font-semibold leading-tight">
                 {s.label}
               </div>
-              <div className="text-[11px] opacity-75">{s.sub}</div>
+              <div className="text-[10.5px] sm:text-[11px] opacity-75 leading-snug">{s.sub}</div>
             </div>
           </motion.div>
         ))}
