@@ -73,9 +73,15 @@ export default function Contact() {
               icon={<Mail className="h-4 w-4" />}
               label="Email"
               value={profile.email}
+              href={`mailto:${profile.email}`}
+              external={false}
               action={
                 <button
-                  onClick={copyEmail}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    copyEmail();
+                  }}
                   data-cursor="hover"
                   className="text-xs font-medium text-ink-500 hover:text-ink-900 inline-flex items-center gap-1"
                 >
@@ -167,13 +173,13 @@ export default function Contact() {
           <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="text-[11px] sm:text-xs text-ink-400 break-words">
               Or email me directly at{" "}
-              <button
-                type="button"
-                onClick={copyEmail}
+              <a
+                href={`mailto:${profile.email}`}
+                data-cursor="hover"
                 className="underline underline-offset-2 hover:text-ink-700 break-all"
               >
                 {profile.email}
-              </button>
+              </a>
             </div>
             <button
               type="submit"
@@ -242,10 +248,14 @@ export default function Contact() {
   );
 }
 
-function ContactRow({ icon, label, value, href, action }) {
+function ContactRow({ icon, label, value, href, action, external = true }) {
   const Wrapper = href ? "a" : "div";
   const props = href
-    ? { href, target: "_blank", rel: "noreferrer", "data-cursor": "hover" }
+    ? {
+        href,
+        "data-cursor": "hover",
+        ...(external ? { target: "_blank", rel: "noreferrer" } : {}),
+      }
     : {};
   return (
     <Wrapper
