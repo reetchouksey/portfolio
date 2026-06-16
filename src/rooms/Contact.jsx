@@ -10,10 +10,20 @@ import {
 import { Github, Linkedin } from "../components/icons/BrandIcons.jsx";
 import { profile } from "../data/content.js";
 
+const gmailComposeUrl = (to, subject = "", body = "") =>
+  `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    to
+  )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
   const [copied, setCopied] = useState(false);
+  const mailHref = gmailComposeUrl(
+    profile.email,
+    "Hello Reet — from your portfolio",
+    "Hi Reet,\n\n"
+  );
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -73,8 +83,7 @@ export default function Contact() {
               icon={<Mail className="h-4 w-4" />}
               label="Email"
               value={profile.email}
-              href={`mailto:${profile.email}`}
-              external={false}
+              href={mailHref}
               action={
                 <button
                   onClick={(e) => {
@@ -174,7 +183,9 @@ export default function Contact() {
             <div className="text-[11px] sm:text-xs text-ink-400 break-words">
               Or email me directly at{" "}
               <a
-                href={`mailto:${profile.email}`}
+                href={mailHref}
+                target="_blank"
+                rel="noreferrer"
                 data-cursor="hover"
                 className="underline underline-offset-2 hover:text-ink-700 break-all"
               >

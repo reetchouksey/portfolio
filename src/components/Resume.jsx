@@ -218,7 +218,11 @@ export default function Resume({ onClose }) {
                   {RESUME.phone}
                 </a>
                 <a
-                  href={`mailto:${RESUME.email}`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+                    RESUME.email
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
                   className="inline-flex items-center gap-1.5 hover:text-ink-900 transition"
                 >
                   <Mail className="h-3.5 w-3.5" />
