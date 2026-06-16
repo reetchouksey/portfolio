@@ -32,7 +32,7 @@ export const skillGroups = [
       { name: "Redux", level: 80 },
       { name: "Tailwind CSS", level: 80 },
       { name: "Responsive Design", level: 95 },
-      { name: "REST APIs", level: 85 },
+      { name: "REST APIs", level: 65 },
     ],
   },
   {
@@ -42,6 +42,8 @@ export const skillGroups = [
       { name: "Git", level: 88 },
       { name: "GitHub", level: 90 },
       { name: "VS Code", level: 95 },
+      { name: "Cursor", level: 90 },
+      { name: "Antigravity", level: 80 },
       { name: "npm", level: 85 },
       { name: "Vite", level: 85 },
       { name: "Chrome DevTools", level: 88 },
@@ -51,6 +53,7 @@ export const skillGroups = [
     title: "Soft Skills",
     accent: "from-emerald-100 to-sky-100",
     items: [
+      { name: "Prompt Engineering", level: 90 },
       { name: "Problem Solving", level: 90 },
       { name: "Team Collaboration", level: 92 },
       { name: "Communication", level: 88 },
